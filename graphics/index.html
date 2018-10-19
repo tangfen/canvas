@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="all" />
+    <meta name="author" content="Tencent-TGideas" />
+    <meta name="Copyright" content="Tencent" />
+    <meta name="Description" content="daily_canvas" />
+    <meta name="Keywords" content="daily_canvas" />
+    <title>daily_canvas</title>
+    <style>
+        canvas{border: 1px solid #000;}
+    </style>
+    <script>
+        // 绘制矩形
+        // fillRect(x,y,width,height); //绘制一个填充的矩形
+        // strokeRect(x,y,width,height); //绘制一个矩形边框
+        // clearRect(x,y,width,height); //清除指定区域
+      function draw() {
+        let canvas = document.getElementById('canvas');
+        //检查是否支持canvas
+        if(canvas.getContext){
+          let ctx = canvas.getContext('2d');//获取渲染上下文和它的绘画功能
+
+          ctx.fillStyle = "rgba(200,0,0)";
+          ctx.fillRect(10,10,55,50);
+
+          ctx.fillStyle = "rgba(0,0,200,0.5)";
+          ctx.fillRect(30,30,55,50);
+        }
+      }
+    </script>
+</head>
+<body onload="draw();">
+<canvas id="canvas" width="150" height="150"></canvas>
+</body>
+</html>
