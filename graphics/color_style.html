@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="all" />
+    <meta name="author" content="Tencent-TGideas" />
+    <meta name="Copyright" content="Tencent" />
+    <meta name="Description" content="daily_canvas" />
+    <meta name="Keywords" content="daily_canvas" />
+    <title>daily_canvas_color_style</title>
+    <style>
+    </style>
+    <script>
+      // 颜色
+      // fillStyle = color; 设置图形的填充颜色
+      // strokeStyle = color; 设置图形的轮廓颜色
+
+      function draw() {
+        let canvas = document.getElementById('canvas');
+        //检查是否支持canvas
+        if(canvas.getContext){
+          let ctx = canvas.getContext('2d');
+          for(let i=0; i<6; i++){
+            for(let j=0; j<6; j++){
+              ctx.fillStyle = 'rgb(' + Math.floor(255-42.5*i) + ',' +
+                Math.floor(255-42.5*j) + ',0)';
+              ctx.fillRect(j*25,i*25,25,25);
+            }
+          }
+        }
+
+        let canvas1 = document.getElementById('canvas1');
+        if(canvas1.getContext){
+          let ctx = canvas1.getContext('2d');
+          for(let i=0; i<6; i++){
+            for(let j=0; j<6; j++){
+              ctx.strokeStyle = 'rgb(' + Math.floor(255-42.5*i) + ',' +
+                Math.floor(255-42.5*j) + ',0)';
+              ctx.beginPath();
+              ctx.arc(12.5+j*25,12.5+i*25,10,0,Math.PI*2,true);
+              ctx.stroke();
+            }
+          }
+        }
+
+        //透明度
+        //   globalAlpha = transparencyValue;
+        //   rgba(0,0,0,.2);
+        let canvas2 = document.getElementById('canvas2');
+        if(canvas2.getContext){
+          let ctx = canvas2.getContext('2d');
+          ctx.fillStyle = '#FD0';
+          ctx.fillRect(0,0,75,75);
+          ctx.fillStyle = '#6C0';
+          ctx.fillRect(75,0,75,75);
+          ctx.fillStyle = '#09F';
+          ctx.fillRect(0,75,75,75);
+          ctx.fillStyle = '#F30';
+          ctx.fillRect(75,75,75,75);
+          ctx.fillStyle = '#FFF';
+
+          ctx.globalAlpha = 0.2;
+          for(let i=0;i<7;i++){
+            ctx.beginPath();
+            ctx.arc(75,75,10+10*i,0,Math.PI*2,true);
+            ctx.fill();
+          }
+        }
+
+        //线型 line style
+        // lineWidth = value; //设置线条宽度 【要注意线条要落在像素边界，不然会有延伸】
+        // lineCap = type; //设置线条末端样式
+        // lineJoin = type; //设定线条与线条间结合处的样式
+        // miterLimit = value; //限制当两条线相交时交界处最大长度
+        // getLineDash(); //返回一个包含当前虚线样式，长度为非负偶数的数组
+        // setLineDash(segments); //设置当前虚线样式
+        // lineDashOffet = value; //设置虚线样式的起始偏移量
+        let canvas3 = document.getElementById('canvas3');
+        if(canvas3.getContext){
+          let ctx = canvas3.getContext('2d');
+          var lineCap = ['butt','round','square'];
+          // 创建路径
+          ctx.strokeStyle = '#09f';
+          ctx.beginPath();
+          ctx.moveTo(10,10);
+          ctx.lineTo(140,10);
+          ctx.moveTo(10,140);
+          ctx.lineTo(140,140);
+          ctx.stroke();
+          // 画线条
+          ctx.strokeStyle = 'black';
+          for (var i=0;i<lineCap.length;i++){
+            ctx.lineWidth = 15;
+            ctx.lineCap = lineCap[i];
+            ctx.beginPath();
+            ctx.moveTo(25+i*50,10);
+            ctx.lineTo(25+i*50,140);
+            ctx.stroke();
+          }
+        }
+
+        let canvas4 = document.getElementById('canvas4');
+        if(canvas4.getContext){
+          let ctx = canvas4.getContext('2d');
+          var lineCap = ['butt','round','square'];
+          var lineJoin = ['round', 'bevel', 'miter'];
+          ctx.lineWidth = 10;
+          for (var i = 0; i < lineJoin.length; i++) {
+            ctx.lineJoin = lineJoin[i];
+            ctx.beginPath();
+            ctx.moveTo(-5, 5 + i * 40);
+            ctx.lineTo(35, 45 + i * 40);
+            ctx.lineTo(75, 5 + i * 40);
+            ctx.lineTo(115, 45 + i * 40);
+            ctx.lineTo(155, 5 + i * 40);
+            ctx.stroke();
+          }
+        }
+
+        //虚线
+        var ctx5 = document.getElementById('canvas5').getContext('2d');
+        var offset = 0;
+
+        function drawInner() {
+          ctx5.clearRect(0,0, canvas.width, canvas.height);
+          ctx5.setLineDash([4, 2]);
+          ctx5.lineDashOffset = -offset;
+          ctx5.strokeRect(10,10, 100, 100);
+        }
+
+        function march() {
+          offset++;
+          if (offset > 16) {
+            offset = 0;
+          }
+          drawInner();
+          setTimeout(march, 20);
+        }
+
+        march();
+
+        //渐变 gradients
+        // createLinearGradient(x1,y1,x2,y2);
+        // createRadialGradient(x1,y1,r1,x2,y2,r2);
+        // //上色
+        // gradient.addColorStop(position,color)
+        var ctx6 = document.getElementById('canvas6').getContext('2d');
+
+        // Create gradients
+        var lingrad = ctx6.createLinearGradient(0,0,0,150);
+        lingrad.addColorStop(0, '#00ABEB');
+        lingrad.addColorStop(0.5, '#fff');
+        lingrad.addColorStop(0.5, '#26C000');
+        lingrad.addColorStop(1, '#fff');
+
+        var lingrad2 = ctx6.createLinearGradient(0,50,0,95);
+        lingrad2.addColorStop(0.5, '#000');
+        lingrad2.addColorStop(1, 'rgba(0,0,0,0)');
+
+        // assign gradients to fill and stroke styles
+        ctx6.fillStyle = lingrad;
+        ctx6.strokeStyle = lingrad2;
+
+        // draw shapes
+        ctx6.fillRect(10,10,130,130);
+        ctx6.strokeRect(50,50,50,50);
+
+        var ctx7 = document.getElementById('canvas7').getContext('2d');
+
+        var radgrad = ctx.createRadialGradient(45,45,10,52,50,30);
+        radgrad.addColorStop(0, '#A7D30C');
+        radgrad.addColorStop(0.9, '#019F62');
+        radgrad.addColorStop(1, 'rgba(1,159,98,0)');
+
+        var radgrad2 = ctx.createRadialGradient(105,105,20,112,120,50);
+        radgrad2.addColorStop(0, '#FF5F98');
+        radgrad2.addColorStop(0.75, '#FF0188');
+        radgrad2.addColorStop(1, 'rgba(255,1,136,0)');
+
+        var radgrad3 = ctx.createRadialGradient(95,15,15,102,20,40);
+        radgrad3.addColorStop(0, '#00C9FF');
+        radgrad3.addColorStop(0.8, '#00B5E2');
+        radgrad3.addColorStop(1, 'rgba(0,201,255,0)');
+
+        var radgrad4 = ctx.createRadialGradient(0,150,50,0,140,90);
+        radgrad4.addColorStop(0, '#F4F201');
+        radgrad4.addColorStop(0.8, '#E4C700');
+        radgrad4.addColorStop(1, 'rgba(228,199,0,0)');
+
+        ctx.fillStyle = radgrad4;
+        ctx.fillRect(0,0,150,150);
+        ctx.fillStyle = radgrad3;
+        ctx.fillRect(0,0,150,150);
+        ctx.fillStyle = radgrad2;
+        ctx.fillRect(0,0,150,150);
+        ctx.fillStyle = radgrad;
+        ctx.fillRect(0,0,150,150);
+
+        //图片
+        // 创建新 image 对象，用作图案
+        var img = new Image();
+        img.src = 'https://mdn.mozillademos.org/files/222/Canvas_createpattern.png';
+        img.onload = function() {
+          // 创建图案
+          var ptrn = ctx.createPattern(img, 'repeat');
+          ctx.fillStyle = ptrn;
+          ctx.fillRect(0, 0, 150, 150);
+        }
+
+        //阴影
+
+
+        ctx.shadowOffsetX = 2;
+        ctx.shadowOffsetY = 2;
+        ctx.shadowBlur = 2;
+        ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
+
+        ctx.font = "20px Times New Roman";
+        ctx.fillStyle = "Black";
+        ctx.fillText("Sample String", 5, 30);
+      }
+    </script>
+</head>
+<body onload="draw();">
+<canvas id="canvas" width="150" height="150"></canvas>
+<canvas id="canvas1" width="150" height="150"></canvas>
+<canvas id="canvas2" width="150" height="150"></canvas>
+<canvas id="canvas3" width="150" height="150"></canvas>
+<canvas id="canvas4" width="150" height="150"></canvas>
+<canvas id="canvas5" width="150" height="150"></canvas>
+<canvas id="canvas6" width="150" height="150"></canvas>
+<canvas id="canvas7" width="150" height="150"></canvas>
+</body>
+</html>

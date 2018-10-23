@@ -45,7 +45,7 @@
 
           ctx2.beginPath();
           ctx2.moveTo(75,50); //移动触笔
-          ctx2.lineTo(100,75);
+          ctx2.lineTo(100,75); //绘制直线
           ctx2.lineTo(100,25);
           ctx2.fill();
         }
@@ -56,6 +56,12 @@
       //   closePath();//闭合路径之后图形绘制命令又会重新指向上下文
       //   stroke();//通过线条来绘制轮廓 不会自动闭合
       //   fill();//通过填充路径的内容区域生成实心的图形 会自动闭合
+      //   moveTo(x,y);//移动笔触
+      //   lineTo(x,y);//绘制直线
+      //   arc(x,y,radius,startAngle,endAngle,anticlockwise)//圆弧
+      //   arcTo(x1,y1,x2,y2,radius);
+      //   quadraticCurveTo(cp1x,cp1y,x,y);//绘制二次贝塞尔曲线
+      //   bezierCurveTo(cp1x,cp1y,cp2x,cp2y,x,y);//绘制三次贝塞尔曲线
 
       //   矩形
       //   rect(x,y,width,height);
