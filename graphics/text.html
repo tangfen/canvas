@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="all" />
+    <meta name="author" content="Tencent-TGideas" />
+    <meta name="Copyright" content="Tencent" />
+    <meta name="Description" content="daily_canvas" />
+    <meta name="Keywords" content="daily_canvas" />
+    <title>daily_canvas</title>
+    <script>
+        // fillText(text,x,y,[,maxWidth])
+        // strokeText(text,x,y,[,maxWidth])
+        function draw() {
+          var ctx = document.getElementById('canvas').getContext('2d');
+          ctx.font = "48px serif";
+          ctx.fillText("Hello world", 10, 50);
+        }
+
+        //样式相关
+        // font = value;
+        // textAlign = value; start end left right center
+        // testBaseline = value; top hanging middle alphabetic ideographic bottom
+        // direction = value; ltr rtl inherit
+    </script>
+
+</head>
+<body onload="draw();">
+<canvas id="canvas" width="300" height="150"></canvas>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="robots" content="all" />
+    <meta name="author" content="Tencent-TGideas" />
+    <meta name="Copyright" content="Tencent" />
+    <meta name="Description" content="daily_canvas" />
+    <meta name="Keywords" content="daily_canvas" />
+    <title>daily_canvas</title>
+    <script>
+        // 步骤
+        // 1.获取一个指向HTMLImageElement的对象或者另一个canvas元素的引用作为源
+        // 2.使用drawImage()函数将图片绘制到画布上
+        function draw() {
+          var ctx = document.getElementById('canvas').getContext('2d');
+          var img = new Image();
+          img.onload = function(){
+            //drawImage(img,x,y,width,height);
+            ctx.drawImage(img,0,0,150,150);
+            // ctx.beginPath();
+            // ctx.moveTo(30,96);
+            // ctx.lineTo(70,66);
+            // ctx.lineTo(103,76);
+            // ctx.lineTo(170,15);
+            // ctx.stroke();
+          }
+          img.src = '../source/demo.jpeg';
+        }
+
+    </script>
+
+</head>
+<body onload="draw();">
+<canvas id="canvas" width="150" height="150"></canvas>
+</body>
+</html>
